@@ -1,3 +1,5 @@
+#Author by odity
+
 from tkinter import *
 from tkinter import filedialog
 
