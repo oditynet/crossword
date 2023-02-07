@@ -5,6 +5,6 @@
 
 Примеры:
 С буквами
-![alt text](https://github.com/oditynet/crossword/blob/main/out1.png)
+![с буквами](https://github.com/oditynet/crossword/blob/main/out1.png)
 Без букв
-![alt text](https://github.com/oditynet/crossword/blob/main/out2.png)
+![Без букв](https://github.com/oditynet/crossword/blob/main/out2.png)
