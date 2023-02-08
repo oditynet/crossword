@@ -1,4 +1,6 @@
-##Генератор кроссворда. 
+Generate crossword
+==========================
+
 
 [![CI workflow status][badge]][actions]
 
@@ -13,7 +15,7 @@ pip3 install image;
 pip3 install tk
 ```
 
-##Примеры с буквами и без
-
+Example
+==========================
 <img src="https://github.com/oditynet/crossword/blob/main/out1.png" title="withwords" width="500" />
 <img src="https://github.com/oditynet/crossword/blob/main/out2.png" title="wioutwords" width="500" />
