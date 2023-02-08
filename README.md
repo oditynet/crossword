@@ -4,7 +4,7 @@ Generate crossword
 
 [![CI workflow status][badge]][actions]
 
-[badge]: https://github.com/oditynet/crossword/actions/workflows/main.yml/badge.svg
+[badge]: https://github.com/oditynet/crossword/actions/workflows/python-app.yml/badge.svg
 [actions]: https://github.com/oditynet/crossword/actions
 На вход подается список слов.
 Вы мышкой выстраиваете внешний вид кроссворда и печатаете готовый вариант с буквами и без
