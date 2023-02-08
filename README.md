@@ -15,5 +15,5 @@ pip3 install tk
 
 ##Примеры с буквами и без
 
-<img src="https://github.com/oditynet/crossword/blob/main/out1.png" title="withwords" width="150" />
-<img src="https://github.com/oditynet/crossword/blob/main/out2.png" title="wioutwords" width="150" />
+<img src="https://github.com/oditynet/crossword/blob/main/out1.png" title="withwords" width="500" />
+<img src="https://github.com/oditynet/crossword/blob/main/out2.png" title="wioutwords" width="500" />
