@@ -8,10 +8,12 @@
 Вы мышкой выстраиваете внешний вид кроссворда и печатаете готовый вариант с буквами и без
 
 Установить на python3:
-1.pip3 install image;
-2.pip3 install tk
+```json
+pip3 install image;
+pip3 install tk
+```
 
-Примеры с буквами и без
+#Примеры с буквами и без
 
 ![с буквами](https://github.com/oditynet/crossword/blob/main/out1.png)
 ![Без букв](https://github.com/oditynet/crossword/blob/main/out2.png)
