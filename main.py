@@ -7,11 +7,15 @@ from PIL import Image
 
 #import os
 
-game_height=800
-game_width=900
-boxsize=50
+game_height=600
+game_width=1100
+boxsize=30
 mouseX=0
 mouseY=0
+ws=22
+ws1=11
+
+sel=0
 add_to_list_word = []
 
 def checkstates():
@@ -40,24 +44,24 @@ def reprint():
                         #print(str(i))
                         canvas.create_rectangle(xc , yc ,xc + boxsize, yc + boxsize, width=1,fill="#FAF0E6")
                         if int(checkstate.get()) == 1:
-                            canvas.create_text(xc + boxsize/2 , yc + boxsize/2, text=wrd,font=("Purisa", 36) )
-                        canvas.create_text(xc + boxsize/8 , yc + boxsize/4, text=str(N),font=("Purisa", 14) )
+                            canvas.create_text(xc + boxsize/2 , yc + boxsize/2, text=wrd,font=("Purisa", ws) )
+                        canvas.create_text(xc + boxsize/8 , yc + boxsize/4, text=str(N),font=("Purisa", ws1) )
                     else:
                         canvas.create_rectangle(xc , yc ,xc + boxsize, yc +boxsize, width=1)
                         if int(checkstate.get()) == 1:
-                            canvas.create_text(xc + boxsize/2 , yc + boxsize/2, text=wrd,font=("Purisa", 36) )
+                            canvas.create_text(xc + boxsize/2 , yc + boxsize/2, text=wrd,font=("Purisa", ws) )
             if i1 == 'y':
                 #for i in range(0, len(j)):
                     if i == 0:
                         #print(str(i))
                         canvas.create_rectangle(xc , yc,xc + boxsize, yc + boxsize, width=1,fill="#FAF0E6")
                         if int(checkstate.get()) == 1:
-                            canvas.create_text(xc + boxsize/2, yc+boxsize/2, text=wrd,font=("Purisa", 36) )
-                        canvas.create_text(xc +boxsize/8, yc+boxsize/4, text=str(N),font=("Purisa", 14) )
+                            canvas.create_text(xc + boxsize/2, yc+boxsize/2, text=wrd,font=("Purisa", ws) )
+                        canvas.create_text(xc +boxsize/8, yc+boxsize/4, text=str(N),font=("Purisa", ws1) )
                     else:
                         canvas.create_rectangle(xc , yc,xc+ boxsize, yc + boxsize, width=1)
                         if int(checkstate.get()) == 1:
-                            canvas.create_text(xc +boxsize/2, yc+boxsize/2, text=wrd,font=("Purisa", 36) )
+                            canvas.create_text(xc +boxsize/2, yc+boxsize/2, text=wrd,font=("Purisa", ws) )
             i=i+1
 
 
@@ -74,13 +78,39 @@ def save_as_png():
 
 def openfile():
     filepath = filedialog.askopenfilename(title="открыть список слов",filetypes=(("text files","*.txt"),("all files","*.*")))
+    #filepath="w.txt"
     file = open(filepath,'r')
     for i in file.readlines():
         i = i.replace("\n","")
         listbox1.insert(END,i)
     file.close()
-
     #return filepath
+    
+def mouse_del(event):
+	canvas.scan_mark(event.x, event.y)
+	mx = event.x
+	my = event.y
+	xword=None
+	yword=None
+	xc=None
+	yx=None
+	count = 0
+	print(add_to_list_word)
+	for i,j,z in add_to_list_word:
+                for wrd,zx,zy in z:
+                    #print(zx,zy)
+                    if (mx <= zx+boxsize and mx >= zx) and (my <= zy+boxsize and my >= zy):
+                        #print("word="+j)
+                        #print("X|Y x:y= '"+i+"' "+str(zx)+":"+str(zy)+" - "+wrd)
+                        pressword=wrd
+                        xc=zx
+                        yc=zy
+                        add_to_list_word.pop(count)
+                        listbox1.insert(END,j)
+                        reprint()
+                        break
+                count=count+1
+                        
 
 def mouse_down(event):
     canvas.scan_mark(event.x, event.y)
@@ -101,13 +131,13 @@ def mouse_down(event):
             for i in range(0,len(word_select)):
                 if i==0:
                     canvas.create_rectangle(xc + i * boxsize, yc, xc + i * boxsize + boxsize, yc + boxsize, width=1,fill="#FAF0E6")
-                    canvas.create_text(xc + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", 36) )
-                    canvas.create_text(xc + i*boxsize+boxsize/8, yc+boxsize/4, text=str(len(add_to_list_word)+1),font=("Purisa", 14) )
+                    canvas.create_text(xc + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", ws) )
+                    canvas.create_text(xc + i*boxsize+boxsize/8, yc+boxsize/4, text=str(len(add_to_list_word)+1),font=("Purisa", ws1) )
                     #word.append([word_select[i],xc + i*boxsize ,yc])
                     word.append([word_select[i],xc + i*boxsize ,yc])
                 else:
                     canvas.create_rectangle(xc + i*boxsize, yc,xc+ i*boxsize + boxsize, yc + boxsize, width=1)
-                    canvas.create_text(xc + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", 36) )
+                    canvas.create_text(xc + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", ws) )
                     #word.append([word_select[i],xc + i*boxsize,yc])
                     word.append([word_select[i],xc + i*boxsize,yc])
             add_to_list_word.append(['x',word_select,word])
@@ -144,12 +174,12 @@ def mouse_down(event):
                         for i in range(0, len(word_select)):
                             if i == 0:
                                 canvas.create_rectangle(xc , yc - pressword_pos*boxsize + i*boxsize,xc + boxsize, yc - pressword_pos*boxsize + i*boxsize +boxsize, width=1,fill="#FAF0E6")
-                                canvas.create_text(xc + boxsize/2 , yc - pressword_pos*boxsize + i*boxsize + boxsize/2, text=word_select[i],font=("Purisa", 36) )
-                                canvas.create_text(xc + boxsize/8 , yc - pressword_pos*boxsize + i*boxsize + boxsize/4, text=str(len(add_to_list_word)+1),font=("Purisa", 14) )
+                                canvas.create_text(xc + boxsize/2 , yc - pressword_pos*boxsize + i*boxsize + boxsize/2, text=word_select[i],font=("Purisa", ws) )
+                                canvas.create_text(xc + boxsize/8 , yc - pressword_pos*boxsize + i*boxsize + boxsize/4, text=str(len(add_to_list_word)+1),font=("Purisa", ws1) )
                                 word.append([word_select[i],xc , yc - pressword_pos*boxsize + i*boxsize ])
                             else:
                                 canvas.create_rectangle(xc , yc - pressword_pos*boxsize + i*boxsize,xc + boxsize, yc - pressword_pos*boxsize + i*boxsize +boxsize, width=1)
-                                canvas.create_text(xc + boxsize/2 , yc - pressword_pos*boxsize + i*boxsize + boxsize/2, text=word_select[i],font=("Purisa", 36) )
+                                canvas.create_text(xc + boxsize/2 , yc - pressword_pos*boxsize + i*boxsize + boxsize/2, text=word_select[i],font=("Purisa", ws) )
                                 word.append([word_select[i],xc , yc - pressword_pos*boxsize + i*boxsize ])
                         add_to_list_word.append(['y',word_select,word])
                         listbox1.delete(listbox1.curselection())
@@ -160,37 +190,79 @@ def mouse_down(event):
                         for i in range(0, len(word_select)):
                             if i == 0:
                                 canvas.create_rectangle(xc - pressword_pos*boxsize + i*boxsize, yc,xc-pressword_pos*boxsize + i*boxsize + boxsize, yc + boxsize, width=1,fill="#FAF0E6")
-                                canvas.create_text(xc - pressword_pos*boxsize + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", 36) )
-                                canvas.create_text(xc - pressword_pos*boxsize + i*boxsize+boxsize/8, yc+boxsize/4, text=str(len(add_to_list_word)+1),font=("Purisa", 14) )
+                                canvas.create_text(xc - pressword_pos*boxsize + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", ws) )
+                                canvas.create_text(xc - pressword_pos*boxsize + i*boxsize+boxsize/8, yc+boxsize/4, text=str(len(add_to_list_word)+1),font=("Purisa", ws1) )
                                 word.append([word_select[i],xc - pressword_pos*boxsize + i*boxsize , yc])
                             else:
                                 canvas.create_rectangle(xc - pressword_pos*boxsize + i*boxsize, yc,xc-pressword_pos*boxsize + i*boxsize + boxsize, yc + boxsize, width=1)
-                                canvas.create_text(xc - pressword_pos*boxsize + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", 36) )
+                                canvas.create_text(xc - pressword_pos*boxsize + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", ws) )
                                 word.append([word_select[i],xc - pressword_pos*boxsize + i*boxsize , yc])
                         add_to_list_word.append(['x',word_select,word])
                         listbox1.delete(listbox1.curselection())
                         yword = ''
 
+def searchword():
+	window.title("Tk")
+	for i in range(0, listbox1.index("end")):
+		word=listbox1.get(i)
+		wb=text2.get()
+
+		#print(word)
+		#print(wb)
+		k=0
+		len_word=len(word)
+		len_wb=len(wb)
+		if len(word) < len(wb):
+			continue
+		for i1 in range(0, len(word)):
+			if word[i1] == wb[0] :
+				k=0
+				if i1+len_wb <= len_word:
+					for j in range(0,len_wb):
+						if (word[i1+j] == wb[j] and wb[j] != "*" ) or (wb[j] == "*"): 
+							k=k+1
+							print(wb[j])
+		if k == len_wb:
+			listbox1.select_set(i)
+			sel=i
+			window.title( word)
+			#print("Found")
+			break
+
+
 window = Tk()
-window.resizable(False,False)
-frame = Frame(window)
-frame.pack()
-listbox1 = Listbox(frame,bg="#f7ffde",font=("Constantia",30),width=15,exportselection=0,height=15)
-buttonopenfile = Button(frame,text="Вставить список слов",command=openfile,state=ACTIVE)
-buttonsavefile = Button(frame,text="Сохранить фотографию",command=save_as_png,state=ACTIVE)
-buttonReload = Button(frame,text="Обновить",command=reprint,state=ACTIVE)
+#window.resizable(False,False)
+frame1 = Frame(window)
+frame2= Frame(window)
+frame1.pack()
+frame2.pack()
+listbox1 = Listbox(frame1,bg="#f7ffde",font=("Constantia",20),width=12,exportselection=0,height=18)
+
+
+buttonopenfile = Button(frame1,text="Вставить список слов",command=openfile,state=ACTIVE)
+buttonsavefile = Button(frame1,text="Сохранить фотографию",command=save_as_png,state=ACTIVE)
+buttonReload = Button(frame1,text="Обновить",command=reprint,state=ACTIVE)
+buttonsearch = Button(frame1,text="Поиск слова",command=searchword,state=ACTIVE)
+
 checkstate=IntVar()
-checkbox = Checkbutton(frame,text="Печатать букву",onvalue=1,offvalue=0,variable=checkstate,command=checkstates)
-canvas = Canvas(frame,height=game_height,width=game_width,bg="#ffffe0")
+checkstate.set(1)
+checkbox = Checkbutton(frame1,text="Печатать буквы",onvalue=1,offvalue=0,variable=checkstate,command=checkstates)
+canvas = Canvas(frame1,height=game_height,width=game_width,bg="#ffffe0")
+text2 = Entry(frame1,text="Поиск подходящих слов", width=20)
+text2.insert(END, "о**д")
+
+
 listbox1.grid(row=0,column=0)
 canvas.grid(row=0,column=1)
 buttonopenfile.grid(row=1,column=0)
-buttonReload.grid(row=1,column=1)
-checkbox.grid(row=1,column=2)
-buttonsavefile.grid(row=1,column=3)
-
-
+buttonReload.grid(row=2,column=0)
+checkbox.grid(row=3,column=0)
+buttonsavefile.grid(row=4,column=0)
+text2.grid(row=1,column=1)
+buttonsearch.grid(row=2,column=1)
 canvas.bind("<ButtonPress-1>", mouse_down)
+canvas.bind("<ButtonPress-3>", mouse_del)
+
 
 window.update()
 windows_width = window.winfo_width()
