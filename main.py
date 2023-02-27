@@ -25,7 +25,7 @@ def checkstates():
         return 0
 def reprint():
 
-    print(add_to_list_word)
+    #print(add_to_list_word)
     canvas.delete("all")
     for i1,j,z,cnt in add_to_list_word:
         i=0
@@ -36,7 +36,7 @@ def reprint():
                         if int(checkstate.get()) == 1:
                             canvas.create_text(xc + boxsize/2 , yc + boxsize/2, text=wrd,font=("Purisa", ws) )
                         if (int(cnt) >= 10):
-                            canvas.create_text(xc + boxsize/8 , yc + boxsize/4, text=cnt,font=("Purisa", ws1) -4 )
+                            canvas.create_text(xc + boxsize/8 , yc + boxsize/4, text=cnt,font=("Purisa", ws1-4) )
                         else:
                             canvas.create_text(xc + boxsize / 8, yc + boxsize / 4, text=cnt, font=("Purisa", ws1))
                     else:
@@ -264,7 +264,7 @@ def searchword():
                     for j in range(0,len_wb):
                         if (word[i1+j] == wb[j] and wb[j] != "*" ) or (wb[j] == "*"):
                             k=k+1
-                            print(wb[j])
+                            #print(wb[j])
         if k == len_wb:
             listbox1.select_set(i)
             sel=i
