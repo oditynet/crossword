@@ -15,3 +15,6 @@ Example
 ==========================
 <img src="https://github.com/oditynet/crossword/blob/main/out1.png" title="withwords" width="500" />
 <img src="https://github.com/oditynet/crossword/blob/main/out2.png" title="wioutwords" width="500" />
+
+TODO:
+1) при отрисовки нового слова проверять расположение уже напечатанных слов (пока вы сами за этим следите)
