@@ -305,7 +305,6 @@ buttonsearch.grid(row=2,column=1)
 canvas.bind("<ButtonPress-1>", mouse_down)
 canvas.bind("<ButtonPress-3>", mouse_del)
 
-
 window.update()
 windows_width = window.winfo_width()
 window_heigth = window.winfo_height()
