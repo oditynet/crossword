@@ -25,24 +25,13 @@ def checkstates():
         return 0
 def reprint():
 
-    #xword=None
-    #yword=None
-    #xc=None
-    #yx=None
-    #pressword = ""
     print(add_to_list_word)
     canvas.delete("all")
-    #N=0
     for i1,j,z,cnt in add_to_list_word:
-        #N=N+1
-        #print(add_to_list_word)
         i=0
         for wrd,xc,yc in z:
             if i1 == 'x':
-                #for i in range(0, len(j)):
-
                     if i == 0:
-                        #print(str(i))
                         canvas.create_rectangle(xc , yc ,xc + boxsize, yc + boxsize, width=1,fill="#FAF0E6")
                         if int(checkstate.get()) == 1:
                             canvas.create_text(xc + boxsize/2 , yc + boxsize/2, text=wrd,font=("Purisa", ws) )
@@ -55,9 +44,7 @@ def reprint():
                         if int(checkstate.get()) == 1:
                             canvas.create_text(xc + boxsize/2 , yc + boxsize/2, text=wrd,font=("Purisa", ws) )
             if i1 == 'y':
-                #for i in range(0, len(j)):
                     if i == 0:
-                        #print(str(i))
                         canvas.create_rectangle(xc , yc,xc + boxsize, yc + boxsize, width=1,fill="#FAF0E6")
                         if int(checkstate.get()) == 1:
                             canvas.create_text(xc + boxsize/2, yc+boxsize/2, text=wrd,font=("Purisa", ws) )
@@ -71,15 +58,10 @@ def reprint():
                             canvas.create_text(xc +boxsize/2, yc+boxsize/2, text=wrd,font=("Purisa", ws) )
             i=i+1
 
-
-
 def save_as_png():
-    # save postscipt image
-
     filepath = filedialog.asksaveasfilename(title="Save files with Words")
-    #canvas.postscript(file=filepath+".ps", colormode='color')
     canvas.postscript(file = filepath , colormode='color')
-    # use PIL to convert to PNG
+
     img = Image.open(filepath)
     img.save(filepath , 'png')
     file = open(filepath+"_out.txt", 'w')
@@ -126,10 +108,7 @@ def mouse_del(event):
     print(add_to_list_word)
     for i,j,z,cnt in add_to_list_word:
                 for wrd,zx,zy in z:
-                    #print(zx,zy)
                     if (mx <= zx+boxsize and mx >= zx) and (my <= zy+boxsize and my >= zy):
-                        #print("word="+j)
-                        #print("X|Y x:y= '"+i+"' "+str(zx)+":"+str(zy)+" - "+wrd)
                         pressword=wrd
                         xc=zx
                         yc=zy
@@ -144,7 +123,6 @@ def mouse_down(event):
     canvas.scan_mark(event.x, event.y)
     mx = event.x
     my = event.y
-    #print("clicked at: ", event.x, event.y)
     xword=None
     yword=None
     xc=None
@@ -165,28 +143,19 @@ def mouse_down(event):
                         canvas.create_text(xc + i*boxsize+boxsize/8, yc+boxsize/4, text="1",font=("Purisa", ws1-4) )
                     else:
                         canvas.create_text(xc + i * boxsize + boxsize / 8, yc + boxsize / 4,text="1", font=("Purisa", ws1))
-                    #word.append([word_select[i],xc + i*boxsize ,yc])
                     word.append([word_select[i],xc + i*boxsize ,yc])
                 else:
                     canvas.create_rectangle(xc + i*boxsize, yc,xc+ i*boxsize + boxsize, yc + boxsize, width=1,fill="#FFFFF0")
                     canvas.create_text(xc + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", ws) )
-                    #word.append([word_select[i],xc + i*boxsize,yc])
                     word.append([word_select[i],xc + i*boxsize,yc])
             add_to_list_word.append(['x',word_select,word,"1"])
-            #Ncount+=1
             listbox1.delete(listbox1.curselection())
         else:
-            #word_select = listbox1.get(listbox1.curselection())
-            #print(add_to_list_word)
             for i,j,z,cnt in add_to_list_word:
                 if j == word_select:
                     break
-                #countword=0
                 for wrd,zx,zy in z:
-                    #print(zx,zy)
                     if (mx <= zx+boxsize and mx >= zx) and (my <= zy+boxsize and my >= zy):
-                        #print("word="+j)
-                        #print("X|Y x:y= '"+i+"' "+str(zx)+":"+str(zy)+" - "+wrd)
                         pressword=wrd
                         xc=zx
                         yc=zy
@@ -194,14 +163,10 @@ def mouse_down(event):
                             xword='x'
                         elif i == 'y':
                             yword='y'
-                    #countword=countword + 1
-            #print(word_select)
-           # print(pressword)
             for i1 in word_select:
                 word = []
                 if i1 == pressword :
                     if xword == 'x':
-                        #print(add_to_list_word)
                         pressword_pos=word_select.find(pressword)
                         p=0
                         for i in range(0, len(word_select)):
@@ -243,13 +208,11 @@ def mouse_down(event):
                         listbox1.delete(listbox1.curselection())
                         xword = ''
                     if yword == 'y':
-                        #print(add_to_list_word)
                         p = 0
                         pressword_pos=word_select.find(pressword)
                         for i in range(0, len(word_select)):
                             if i == 0:
                                 for i2, j2, z2,cnt in add_to_list_word:
-                                    #print(add_to_list_word)
                                     tmp_l=0
                                     for t in z2:
                                         if tmp_l == 0:
@@ -277,7 +240,6 @@ def mouse_down(event):
                                 canvas.create_rectangle(xc - pressword_pos*boxsize + i*boxsize, yc,xc-pressword_pos*boxsize + i*boxsize + boxsize, yc + boxsize, width=1,fill="#FFFFF0")
                                 canvas.create_text(xc - pressword_pos*boxsize + i*boxsize+boxsize/2, yc+boxsize/2, text=word_select[i],font=("Purisa", ws) )
                                 word.append([word_select[i],xc - pressword_pos*boxsize + i*boxsize , yc])
-                        #add_to_list_word.append(['x',word_select,word,len(add_to_list_word)+1])
                         if p!=0:
                             add_to_list_word.append(['x', word_select, word, cnt])
                         else:
@@ -290,9 +252,6 @@ def searchword():
     for i in range(0, listbox1.index("end")):
         word=listbox1.get(i)
         wb=text2.get()
-
-        #print(word)
-        #print(wb)
         k=0
         len_word=len(word)
         len_wb=len(wb)
@@ -310,7 +269,6 @@ def searchword():
             listbox1.select_set(i)
             sel=i
             window.title( word)
-            #print("Found")
             break
 
 
